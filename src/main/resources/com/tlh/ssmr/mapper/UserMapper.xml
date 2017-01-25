@@ -1,0 +1,42 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlh.ssmr.mapper.UserMapper">
+	
+	<select id="findUserInfo" resultType="user" parameterType="user">
+		select * from users
+	</select>
+	
+	<select id="findUserInfoById" parameterType="int" resultType="user">
+		select * from users where id=#{value}
+	</select>
+	
+	<delete id="deleteUserById" parameterType="int">
+		delete from users where id=#{id}
+	</delete>
+	
+	<insert id="saveUser" parameterType="user">
+		insert into users(name,sex,password,address) values(#{name},#{sex},#{password},#{address})
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		update users
+		<set>
+			<if test="name!=null and name!=''">
+				name=#{name},
+			</if>
+			<if test="password!=null and password!=''">
+				password=#{password},
+			</if>
+			<if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address}
+			</if>
+		</set>
+		<where>
+			id=#{id}
+		</where>
+	</update>
+	
+</mapper>
